@@ -1,0 +1,64 @@
+[project]
+name = "ydis"
+version = "0.1.0"
+description = "A richer and smarter Python bytecode disassembler built on top of dis."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+rich = [
+    "rich>=13.0.0",
+]
+cli = [
+    "click>=8.0.0",
+]
+
+[project.scripts]
+ydis = "ydis.cli:cli"
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "pytest-html",
+    "ruff",
+]
+
+[tool.uv]
+native-tls = true
+
+[tool.ruff]
+target-version = "py313"
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 150
+
+[tool.ruff.lint]
+# use ruff defaults: Flake8's F rules, along with a subset of the E rules, omitting any stylistic rules
+# that overlap with the use of a formatter, like Black.
+fixable = ["ALL"]
+select = [
+    "E",
+    "F",
+    "I", # isort
+    "UP", # pyupgrade
+    "S", # flake8-bandit
+    "PGH", # pygrep-hooks
+    "T100", # debug statements
+    "W291", # trailing whitespace
+    "W292" # no newline at end of file
+]
+ignore = [
+    # https://docs.astral.sh/ruff/rules/#pydocstyle-d
+    "D10", # missing docstrings (100 module, 101 class, 102 method ...)
+    "D21", # whitespace and indentation,
+    "S101" # use of assert
+]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+
+[tool.pytest.ini_options]
+junit_family = "legacy"
+testpaths = "tests"
