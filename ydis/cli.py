@@ -14,9 +14,7 @@ def cli(path):
         with open(path, 'r') as f:
             source = f.read()
         
-        # Compile the source to a code object
-        code_obj = compile(source, path, 'exec')
-        
+        code_obj = compile(source, path, 'exec')        
         disassembler = Disassembler()
         instructions = disassembler.get_instructions(code_obj)
         
